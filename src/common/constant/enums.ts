@@ -6,3 +6,8 @@ export enum EUserStatus {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
 }
+
+export enum ERole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}

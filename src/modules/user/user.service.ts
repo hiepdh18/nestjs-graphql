@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { BackendLogger } from 'common/logger/backend-logger';
-import { UserCreateDto } from './dtos/userCreate.dto';
+import { SignupDto } from './../auth/dtos/signup.dto';
 import { UserReturnDto } from './dtos/userReturn.dto';
 import { UserRepository } from './user.repository';
 @Injectable()
@@ -20,14 +20,14 @@ export class UserService {
     }
   }
 
-  async create(user: UserCreateDto): Promise<UserReturnDto> {
-    const newUser = await this.userRepository.create(user);
+  async signup(signupDto: SignupDto): Promise<UserReturnDto> {
+    const newUser = await this.userRepository.create(signupDto);
     this.eventEmitter.emit('user.created', newUser);
     return new UserReturnDto(newUser);
   }
 
   async findOne(opts: any = {}): Promise<UserReturnDto> {
     const user = await this.userRepository.findOne(opts);
-    return new UserReturnDto(user);
+    return user ? new UserReturnDto(user) : null;
   }
 }

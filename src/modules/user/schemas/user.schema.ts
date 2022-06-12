@@ -1,18 +1,22 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { prop } from '@typegoose/typegoose';
+import { IsEmail } from 'class-validator';
 import { DEFAULT_USER_NAME } from 'common/constant/constants';
+import { EUserStatus } from 'common/constant/enums';
 import { Typegoose } from 'typegoose';
+import { Role } from './role.schema';
 
 @ObjectType()
 export class User extends Typegoose {
   @Field()
   _id: string;
 
-  @prop({ required: true })
+  @prop()
   @Field()
+  @IsEmail()
   email: string;
 
-  @prop({ required: true })
+  @prop()
   @Field()
   password: string;
 
@@ -20,9 +24,29 @@ export class User extends Typegoose {
   @Field({ nullable: true })
   name: string;
 
-  // @prop({ default: [] })
-  // @Field(() => [Role], { defaultValue: [] })
-  // roles: Role[];
+  @prop({ default: null })
+  @Field({ defaultValue: null })
+  avatarUrl: string;
+
+  @prop({ default: [] })
+  @Field(() => [Role], { defaultValue: [] })
+  roles: Role[];
+
+  @prop({ default: EUserStatus.VERIFY_MAIL })
+  @Field()
+  status: string;
+
+  @prop({ default: null })
+  @Field()
+  verificationToken: string;
+
+  @prop({ default: new Date() })
+  @Field()
+  updatedAt: Date;
+
+  @prop({ default: new Date() })
+  @Field()
+  createdAt: Date;
 }
 
 export const UserModel = new User().getModelForClass(User);
