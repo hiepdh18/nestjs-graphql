@@ -13,9 +13,6 @@ export class UserService {
   ) {}
   async findAll(): Promise<UserReturnDto[]> {
     try {
-      const listUser = await this.userRepository.findOne();
-      this.logger.log('here');
-      console.log(listUser);
       const listUsers = [];
       return listUsers.map((user) => new UserReturnDto(user));
     } catch (error) {
@@ -27,5 +24,10 @@ export class UserService {
     const newUser = await this.userRepository.create(user);
     this.eventEmitter.emit('user.created', newUser);
     return new UserReturnDto(newUser);
+  }
+
+  async findOne(opts: any = {}): Promise<UserReturnDto> {
+    const user = await this.userRepository.findOne(opts);
+    return new UserReturnDto(user);
   }
 }

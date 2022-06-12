@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common';
 import chalk from 'chalk';
 import { REQUEST_ID, SESSION_USER } from 'common/constant/constants';
-import dayjs from 'dayjs';
 import { SessionMiddleware } from 'common/middleware/session.middleware';
+import dayjs from 'dayjs';
 import { User } from 'modules/user/schemas/user.schema';
 import * as winston from 'winston';
 // import ecsFormat from '@elastic/ecs-winston-format';
@@ -36,17 +36,17 @@ export class BackendLogger extends Logger {
       new winston.transports.DailyRotateFile({
         filename: 'logs/server.log',
         format: winston.format.combine(winston.format.uncolorize()),
-        level: 'verbose',
+        level: 'error',
         datePattern: 'YYYY-MM-DD',
         maxFiles: 10,
       }),
-      new winston.transports.DailyRotateFile({
-        filename: 'logs/serverAll.log',
-        format: winston.format.combine(winston.format.uncolorize()),
-        level: 'silly',
-        datePattern: 'YYYY-MM-DD',
-        maxFiles: 10,
-      }),
+      // new winston.transports.DailyRotateFile({
+      //   filename: 'logs/serverAll.log',
+      //   format: winston.format.combine(winston.format.uncolorize()),
+      //   level: 'silly',
+      //   datePattern: 'YYYY-MM-DD',
+      //   maxFiles: 10,
+      // }),
 
       // new winston.transports.File({
       //   filename: 'logs/serverAll.log',

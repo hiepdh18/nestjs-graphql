@@ -27,9 +27,9 @@ export class BaseRepository<T extends Typegoose> {
     return await this.model.findOne(opts);
   }
 
-  // public async findAll(opts: any = {}): Promise<T[] & mongoose.Document[]> {
-  //   return await this.model.find(opts);
-  // }
+  public async findAll(opts: any = {}): Promise<mongoose.Document[]> {
+    return await this.model.find(opts);
+  }
 
   async findByIdAndUpdate(
     id: string,
@@ -56,6 +56,9 @@ export class BaseRepository<T extends Typegoose> {
 
   public async deleteOne(opts: any = {}): Promise<void> {
     await this.model.deleteOne(opts);
+  }
+  public async deleteById(id: string): Promise<void> {
+    await this.model.deleteOne({ _id: id });
   }
 
   public async count(opts: any = {}): Promise<number> {

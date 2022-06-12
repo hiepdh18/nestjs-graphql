@@ -1,7 +1,9 @@
+import { GqlAuthGuard } from './../auth/guards/graphqlAuth.guard';
+import { UseGuards } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { BackendLogger } from 'common/logger/backend-logger';
 import { PubSub } from 'graphql-subscriptions';
-import { BackendLogger } from './../../common/logger/backend-logger';
 import { UserCreateDto } from './dtos/userCreate.dto';
 import { UserReturnDto } from './dtos/userReturn.dto';
 import { User } from './schemas/user.schema';
@@ -10,6 +12,7 @@ import { UserService } from './user.service';
 const pubSub = new PubSub();
 
 @Resolver(User)
+@UseGuards(GqlAuthGuard)
 export class UserResolver {
   private logger: BackendLogger = new BackendLogger(UserResolver.name);
   constructor(private readonly userService: UserService) {}
@@ -32,7 +35,6 @@ export class UserResolver {
 
   @OnEvent('user.created')
   async testEvent(payload: any) {
-    console.log(payload);
     return payload;
   }
   @Subscription(() => String)

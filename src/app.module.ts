@@ -1,3 +1,4 @@
+import { AuthModule } from './modules/auth/auth.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -10,6 +11,8 @@ import { AppService } from './app.service';
 import { CronJobModule } from './modules/cron-job/cron-job.module';
 import { MailModule } from './modules/mail/mail.module';
 import { UserModule } from './modules/user/user.module';
+import { EventsModule } from './modules/events/events.module';
+import { SocketModule } from './modules/socket/socket.module';
 
 @Module({
   imports: [
@@ -40,9 +43,12 @@ import { UserModule } from './modules/user/user.module';
       // disable throwing uncaughtException if an error event is emitted and it has no listeners
       // ignoreErrors: false,
     }),
+    AuthModule,
     UserModule,
     MailModule,
     CronJobModule,
+    EventsModule,
+    SocketModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -10,14 +10,10 @@ export class UserRepository extends BaseRepository<User> {
   constructor(@InjectModel(User) private readonly userModel: ModelType<User>) {
     super(userModel);
   }
-  async findOne(opts: any = {}) {
-    return await this.userModel.findOne(opts);
-  }
 
-  async create(user: UserCreateDto): Promise<User> {
-    this.logger.log(`Creating new user: ${user.name.toLowerCase()}`);
-    console.log(user);
-    const newUser = new this.userModel(user);
+  async create(userCreateDto: UserCreateDto): Promise<User> {
+    this.logger.log(`Creating new user: ${userCreateDto.email.toLowerCase()}`);
+    const newUser = new this.userModel(userCreateDto);
     return await newUser.save();
   }
 }

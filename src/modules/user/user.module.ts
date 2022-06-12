@@ -8,5 +8,6 @@ import { UserService } from './user.service';
 @Module({
   imports: [TypegooseModule.forFeature([User])],
   providers: [UserResolver, UserService, UserRepository],
+  exports: [UserService, UserRepository],
 })
 export class UserModule {}
