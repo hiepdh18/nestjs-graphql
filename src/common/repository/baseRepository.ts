@@ -1,6 +1,6 @@
 import { BackendLogger } from 'common/logger/backend-logger';
 import * as mongoose from 'mongoose';
-import { ModelType, Typegoose } from 'typegoose';
+import { ModelType, Typegoose } from '@hasezoey/typegoose';
 
 export interface PaginateOptions {
   select?: string | Record<string, unknown>;

@@ -3,6 +3,7 @@
 # ------------------------------------------------------
 
 type Role {
+  _id: String!
   name: String!
   enabled: Boolean!
 }

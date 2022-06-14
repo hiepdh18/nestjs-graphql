@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ERole } from 'common/constant/enums';
 import { BackendLogger } from 'common/logger/backend-logger';
 import { SignupDto } from './../auth/dtos/signup.dto';
 import { UserReturnDto } from './dtos/userReturn.dto';
@@ -22,6 +23,7 @@ export class UserService {
 
   async signup(signupDto: SignupDto): Promise<UserReturnDto> {
     const newUser = await this.userRepository.create(signupDto);
+    await this.userRepository.addUserRole(newUser._id, ERole.USER);
     this.eventEmitter.emit('user.created', newUser);
     return new UserReturnDto(newUser);
   }

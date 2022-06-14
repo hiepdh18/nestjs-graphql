@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { BaseRepository } from 'common/repository/baseRepository';
 import { InjectModel } from 'nestjs-typegoose';
-import { ModelType } from 'typegoose';
+import { ModelType } from '@hasezoey/typegoose';
 import { SignupDto } from './../auth/dtos/signup.dto';
 import { Role } from './schemas/role.schema';
 import { User } from './schemas/user.schema';

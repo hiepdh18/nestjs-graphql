@@ -16,11 +16,11 @@ export class AuthService {
     return user;
   }
 
-  async signup(signupDto: SignupDto) {
-    this.logger.log(`Signup ${signupDto.email.toLowerCase()}`);
+  async signup(iSignup: ISignup) {
+    this.logger.log(`Signup ${iSignup.email.toLowerCase()}`);
 
     const userCheck = await this.userService.findOne({
-      email: signupDto.email,
+      email: iSignup.email,
     });
     if (userCheck) {
       throw new UnprocessableEntityException('Email already existed!');

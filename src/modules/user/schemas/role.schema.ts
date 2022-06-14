@@ -1,8 +1,11 @@
+import { prop, Typegoose } from '@hasezoey/typegoose';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { prop, Typegoose } from 'typegoose';
 
 @ObjectType()
 export class Role extends Typegoose {
+  @Field()
+  _id: string;
+
   @prop()
   @Field()
   name: string;
